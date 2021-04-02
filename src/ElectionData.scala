@@ -82,11 +82,11 @@ object ElectionData extends App {
 
 
 // FUNCTIONS THAT INTERACT WITH USER
-    def showAllValues(f:() => Map[String, List[(String, Int)]] = {
+    def showAllValues(f: () => Map[ String, List[(String, Int)] ] ) = {
         f() foreach {
-            case (s, k, v) => println(s" $s $k: $v")
+            case (k, v) => println(s"State: $k - Votes: $v")
         }
-    })
+    }
 
 //    def mnuShowPointsForTeam(f: (String) => (String, Int)) = {
 //        val team = readLine("Enter team name: ")
