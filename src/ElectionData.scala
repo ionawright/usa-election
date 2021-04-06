@@ -19,7 +19,7 @@ object ElectionData extends App {
 
     val mapdata = mapBuffer;
 //    val mapdata = readFile("election_data.txt")
-//    println(mapdata)
+    println(mapdata)
 
     val actionMap = Map[Int, () => Boolean](1 -> handleOne, 2 -> handleTwo, 3 -> handleThree, 4 -> handleFour, 5 -> handleFive, 6 -> handleSix, 7 -> handleSeven)
     var opt = 0
@@ -56,6 +56,7 @@ object ElectionData extends App {
         }
 
         def handleTwo(): Boolean = {
+//            showTotalVotesForState(totalVotesForState)
             true
         }
 
@@ -88,14 +89,11 @@ object ElectionData extends App {
         }
     }
 
-//    def mnuShowPointsForTeam(f: (String) => (String, Int)) = {
-//        val team = readLine("Enter team name: ")
-//        val result = currentPointsForTeam(team)
+//    def showTotalVotesForState(f: (String) => (String, Int)) = {
+//        val state = readLine("Enter state: ")
+//        val result = totalVotesForState(state)
 //        println(result)
-//        println("First tuple", result._1)
-//        println("Second tuple", result._2)
-//        val points = result._2
-//        println(s"$team: $points")
+//        println(s"$state: $result")
 //    }
 
 //  OPERATION FUNCTIONS
@@ -103,21 +101,41 @@ object ElectionData extends App {
         ListMap(mapdata.toSeq.sortBy(_._1):_*)
     }
 
-//    def currentPointsForTeam(team: String): (String, Int) = {
-//        println(s"Team selected is $team")
-//        mapdata.get(team) match {
-//            case Some(x) => (team, x)
-//            case None => println("Team is not in list") ; (team, 0)
+//    def totalVotesForState(state: String): List[(String, Int)] = {
+//        println(s"State selected: $state")
+//        mapdata.get(state)
+//        mapdata.get(state) match {
+//            case Some(x) => (state, x)
+//            case None => println("State is not listed") ; (state, 0)
 //        }
+//    }
+
+
+    //        for ((key, list) <- mapdata) {
+    //            println(list)
+    //        }
+    //        RETURNS List((Democratic,849624), (Republican,1441170), (Libertarian,25176), (Others,7312))
+    //        val x = mapdata.values.foldLeft(0)(_+_)
+
+
+
+//    def averageVotesPerPartyInState(list:List[(String,Int)]): Float = {
+////        for ((key, list) <- mapdata) {
+////            list.length
+////        }
+//        val sum = list.foldLeft(0)(_+_)
+//        val total = list.foldLeft(0)((sum,_) => sum + 1)
+//        sum / total
 //    }
 
 //        def readFile(filename: String): Map[String, List[(String, Int)]] = {
 //            var mapBuffer: Map[String, List[(String, Int)]] = Map()
 //            try {
 //                for (line <- Source.fromFile(filename).getLines()) {
-////                    val splitline = line.split(",").map(_.trim).toList
-//                        val splitline = line.split(",").map(_.split(":")).toList.map(_.toList)
-//                    mapBuffer = mapBuffer ++ Map(splitline.head -> splitline.tail)
+//                    val splitline = line.split(",").map(_.trim).toList
+//                    val newList = splitline.tail.toSeq
+////                    mapBuffer = mapBuffer ++ Map(splitline.head -> newList)
+//                    println(newList)
 //                }
 //            } catch {
 //                case ex: Exception => println("Sorry, an exception happened.")
@@ -126,24 +144,25 @@ object ElectionData extends App {
 ////          mapBuffer.close (close the file when finished)
 //        }
 
-//    def readFile(filename: String): Map[String, List[(String, Int)]] = {
-//        val result = for (line <- Source.fromFile(filename).getLines();
-//                          array = line.split(",").map(_.trim))
-//            yield Map(array.head -> array.tail.map(x => {
-//            val y = x.split(":"); (y(0).toString, y(1).toInt)
-//        }).toList)
-//        result
-//    }
 
 //    val filename = "election_data.txt"
 //    for (line <- Source.fromFile(filename).getLines()) {
 //        val splitline = line.split(",").map(_.trim).toList
 //        println(splitline)
+//        val boom = Map(splitline._1 -> splitline._2.map(x => {
+//         val banana = x.split(":"); (banana(0).toString, banana(1).toInt)})
+//        println(boom)
+//        val splitline = line.split(",").map(_.trim).toList.splitAt(1)
+//        println("SPLITTING UP THE LINES ---------", splitline)
+//        val mapping = Map(splitline._1 -> splitline._2.map(x => {
+//            val y = x.split(":"); (y(0).toString, y(1).toInt)
+//        }))
+//        println("MAPPING THE DATA ------------------", mapping)
+//    }
 
 
 //    val newMap = Map(name -> newList2.toList)
 //    newMap
 //        val splitagain = splitline.split(":").map().toList
 //        println(splitagain)
-//    }
 }
