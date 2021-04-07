@@ -1,3 +1,5 @@
+import scala.io.Source
+
 var mapBuffer: Map[String, List[(String, Int)]] = Map()
 
 var key ="Alabama (9)"
@@ -42,7 +44,21 @@ mapBuffer = mapBuffer ++ Map(key -> newList)
 
 println("mapBuffer: " + mapBuffer)
 
-
+val filename = "election_data.txt"
+    for (line <- Source.fromFile(filename).getLines()) {
+        val splitline = line.split(",").map(_.trim).toList
+        println(splitline)
+//        val boom = Map(splitline._1 -> splitline._2.map(x => {
+//         val banana = x.split(":"); (banana(0).toString, banana(1))})
+//            println(boom)
+        val splitline2 = line.split(",").map(_.trim).toList.splitAt(1)
+        println(splitline2)
+        println("SPLITTING UP THE LINES ---------", splitline2)
+//        val mapping = Map(splitline._1 -> splitline._2.map(x => {
+//            val y = x.split(":"); (y(0).toString, y(1).toInt)
+//        }))
+//        println("MAPPING THE DATA ------------------", mapping)
+    }
 
 
 
