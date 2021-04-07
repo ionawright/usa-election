@@ -63,6 +63,7 @@ object ElectionData extends App {
         }
 
         def handleSix(): Boolean = {
+//            showTotalNumberOfVotesForParty(totalNumberOfVotesForParty)
             true
         }
 
@@ -91,12 +92,23 @@ object ElectionData extends App {
         println(s"$state has a average of $result votes per party. \n")
     }
 
-    def showWinningParties(f: (String) => (String,Int)) = {
-        val party = winningPartyOfState()
-        val percentage = "%"
-        val state = "state"
-        println(s"The winning party in $state is $party with $percentage of the votes cast")
-    }
+//    def showWinningParties(f: (String) => (String,Int)) = {
+//        val party = winningPartyOfState()
+//        val percentage = "%"
+//        val state = "state"
+//        println(s"The winning party in $state is $party with $percentage of the votes cast")
+//    }
+
+//    def showVotesWonByParties(f: (String) => Int) = {
+//        val result = votesWonByParties()
+//        println(s"$result")
+//    }
+
+//    def showTotalNumberOfVotesForParty(f: (String) => (String,Int)) = {
+//        val party = readLine("Enter party: ")
+//        val result = totalNumberOfVotesForParty(party)
+//        println(s"The $party party gained $votes votes which is $percentage of the votes cast")
+//    }
 
 //  OPERATION FUNCTIONS
     def currentVotes(): Map[String, List[(String, Int)]] = {
@@ -124,13 +136,26 @@ object ElectionData extends App {
         sum / total
     }
 
-    def winningPartyOfState(): Unit = {
+//    def winningPartyOfState(): Unit = {
+        // val total = x => x.map (_._2).foldLeft(0)(_+_) << add all the party votes
+        // val divide = partyVotes.(_.1) / total << divide party votes by the total
+        // result = divide * 100
+//    }
 
+    //    def votesWonByParties(): Unit = {
+    // lowest to highest (decending order)
+    // winning party in a state counts as 1
+    // Party: Vote
+    //    }
 
-    }
-//    // max - maxBy
-//
-//    println(winningPartyOfState())
+//    def totalNumberOfVotesForParty(party:String): (String,Int) = {
+//        println(s"Party selected: $party")
+//        mapdata.get(party) match {
+//            case Some(x) => x.map (_._2)
+//            case None =>  println("party not in list "); 0
+//        }
+//    }
+
 
         def readFile(filename: String): Map[String, List[(String, Int)]] = {
             var mapBuffer: Map[String, List[(String, Int)]] = Map()
