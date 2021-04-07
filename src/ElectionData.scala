@@ -50,6 +50,7 @@ object ElectionData extends App {
         }
 
         def handleThree(): Boolean = {
+            showAverageVotesForParty(averageVotesPerPartyInState)
             true
         }
 
@@ -66,7 +67,7 @@ object ElectionData extends App {
         }
 
         def handleSeven(): Boolean = {
-            println("selected quit")
+            println("Selected quit, Goodbye")
             false
         }
 
@@ -74,15 +75,27 @@ object ElectionData extends App {
 // FUNCTIONS THAT INTERACT WITH USER
     def showAllValues(f: () => Map[ String, List[(String, Int)] ] ) = {
         f() foreach {
-            case (k, v) => println(s"State: $k - Votes: $v")
+            case (k, v) => println(s"State: $k - Votes: $v \n")
         }
     }
 
-    def showTotalVotesForState(f: (String) => (String, Int)) = {
+    def showTotalVotesForState(f: (String) => Int) = {
         val state = readLine("Enter state: ")
         val result = totalVotesForState(state)
-        println(result)
-        println(s"$state: $result")
+        println(s"$state had $result votes \n")
+    }
+//
+    def showAverageVotesForParty(f: (String) => Float) = {
+        val state = readLine("Enter state: ")
+        val result = averageVotesPerPartyInState(state)
+        println(s"$state has a average of $result votes per party. \n")
+    }
+
+    def showWinningParties(f: (String) => (String,Int)) = {
+        val party = winningPartyOfState()
+        val percentage = "%"
+        val state = "state"
+        println(s"The winning party in $state is $party with $percentage of the votes cast")
     }
 
 //  OPERATION FUNCTIONS
@@ -90,43 +103,50 @@ object ElectionData extends App {
         ListMap(mapdata.toSeq.sortBy(_._1):_*)
     }
 
-    def totalVotesForState(state: String): (String, Int) = {
+    def totalVotesForState(state: String): Int = {
         println(s"State selected: $state")
         mapdata.get(state) match {
-            case Some(x) => (state, x.map (_._2).sum)
-            case None =>  println("Not available"); (state, 0)
+            case Some(x) => x.map (_._2).sum
+            case None =>  println("State not available in list "); 0
         }
     }
 
-//    def averageVotesPerPartyInState(list:List[(String,Int)]): Float = {
-//        for ((key, list) <- mapdata) {
-//            list.length
-//        }
-//        val sum = list.foldLeft(0)(_+_)
-//        val total = list.foldLeft(0)((sum,_) => sum + 1)
-//        sum / total
-//    }
+    def averageVotesPerPartyInState(state: String): Float = {
+        println(s"State selected: $state")
+            val sum = mapdata.get(state) match {
+                case Some(x) => x.map (_._2).foldLeft(0)(_+_)
+                case None => 0
+            }
+            val total = mapdata.get(state) match {
+                case Some(x) => x.map (_._2).length
+                case None => 0
+            }
+        sum / total
+    }
+
+    def winningPartyOfState(): Unit = {
+
+
+    }
+//    // max - maxBy
+//
+//    println(winningPartyOfState())
 
         def readFile(filename: String): Map[String, List[(String, Int)]] = {
             var mapBuffer: Map[String, List[(String, Int)]] = Map()
             try {
                 for (line <- Source.fromFile(filename).getLines()) {
                     val splitline = line.split(",").map(_.trim).toList
-                    // println(splitline)
                     val newList = splitline.tail
-                    //  println(newList)
-                    // List(Democratic:1672143, Republican:1661686, Libertarian:51465, Green:1557)
-                    val boom = newList map (x => {
+                    val listOfVotes = newList map (x => {
                         val y = x.split(":")
                         (y(0).toString, y(1).toInt)
                     })
-//                    println(boom)
-                    mapBuffer = mapBuffer ++ Map(splitline.head -> boom)
+                    mapBuffer = mapBuffer ++ Map(splitline.head -> listOfVotes)
                 }
             } catch {
                 case ex: Exception => println("Sorry, an exception happened.")
             }
             mapBuffer
-            // RESULT = HashMap(Arizona (11) -> List((Democratic,1672143), (Republican,1661686), (Libertarian,51465), (Green,1557), (Others,475)), Arkansas (6)
         }
 }
