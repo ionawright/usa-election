@@ -55,10 +55,12 @@ object ElectionData extends App {
         }
 
         def handleFour(): Boolean = {
+            showWinningParty(winningPartyOfState)
             true
         }
 
         def handleFive(): Boolean = {
+//            showVotesWonByParties(votesWonByParties)
             true
         }
 
@@ -92,18 +94,18 @@ object ElectionData extends App {
         println(s"$state has a average of $result votes per party. \n")
     }
 
-//    def showWinningParties(f: (String) => (String,Int)) = {
-//        val party = winningPartyOfState()
-//        val percentage = "%"
-//        val state = "state"
-//        println(s"The winning party in $state is $party with $percentage of the votes cast")
-//    }
+    def showWinningParty(f: (String) => Int) = {
+        val state = readLine("Enter state: ")
+        val result = winningPartyOfState(state)
+        println(s"The winning party in $state is ____ with $result of the votes cast")
+    }
 
+    // TODO: 2 functions
 //    def showVotesWonByParties(f: (String) => Int) = {
 //        val result = votesWonByParties()
 //        println(s"$result")
 //    }
-
+//
 //    def showTotalNumberOfVotesForParty(f: (String) => (String,Int)) = {
 //        val party = readLine("Enter party: ")
 //        val result = totalNumberOfVotesForParty(party)
@@ -111,6 +113,7 @@ object ElectionData extends App {
 //    }
 
 //  OPERATION FUNCTIONS
+//    TODO: remove () and number from state
     def currentVotes(): Map[String, List[(String, Int)]] = {
         ListMap(mapdata.toSeq.sortBy(_._1):_*)
     }
@@ -136,10 +139,25 @@ object ElectionData extends App {
         sum / total
     }
 
-//    def winningPartyOfState(): Unit = {
-        // val total = x => x.map (_._2).foldLeft(0)(_+_) << add all the party votes
-        // val divide = partyVotes.(_.1) / total << divide party votes by the total
-        // result = divide * 100
+    // TODO: Get party name that has the highest votes
+    def winningPartyOfState(state: String): Int = {
+       val votesInState = mapdata.get(state) match {
+           case Some(x) => x.map(_._2)
+       }
+        val highestVote = votesInState.max
+        val totalVotes = votesInState.sum
+        val result = highestVote.toFloat/totalVotes * 100
+        result.round
+    }
+
+    // TODO: 2 functions
+
+//    def winningPartyOfState(): Map[String, List[(String, Int)]] = {
+//        val votesInState = mapdata(x) => x.map(_._2)
+//        val totalVotes = votesInState.sum
+//        val highestVote = votesInState.max
+//        highestVote / totalVotes * 100
+//
 //    }
 
     //    def votesWonByParties(): Unit = {
