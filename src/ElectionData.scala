@@ -140,25 +140,29 @@ object ElectionData extends App {
     }
 
     // TODO: Get party name that has the highest votes
-    def winningPartyOfState(state: String): Int = {
-       val votesInState = mapdata.get(state) match {
-           case Some(x) => x.map(_._2)
-       }
-        val highestVote = votesInState.max
+//    def winningPartyOfState(state: String): Int = {
+//       val votesInState = mapdata.get(state) match {
+//           case Some(x) => x.map(_._2)
+//       }
+//        val highestVote = votesInState.max
+//        val totalVotes = votesInState.sum
+//        val result = highestVote.toFloat/totalVotes * 100
+//        result.round
+//    }
+
+    def winningPartyOfState(): Map[String, List[(String, Int)]] = {
+        val votesInState = mapdata(x) => x.map(_._2)
+        // Arizona (11) -> List((Democratic,1672143), (Republican,1661686), (Libertarian,51465), (Green,1557), (Others,475))
         val totalVotes = votesInState.sum
-        val result = highestVote.toFloat/totalVotes * 100
-        result.round
+        // 1672143, 1661686, 51465, 1557, 475 = 3,387,326
+        val highestVote = votesInState.max
+        // 1672143
+        highestVote / totalVotes * 100
+        // 1672143 / 3,387,326 * 100
+
     }
 
     // TODO: 2 functions
-
-//    def winningPartyOfState(): Map[String, List[(String, Int)]] = {
-//        val votesInState = mapdata(x) => x.map(_._2)
-//        val totalVotes = votesInState.sum
-//        val highestVote = votesInState.max
-//        highestVote / totalVotes * 100
-//
-//    }
 
     //    def votesWonByParties(): Unit = {
     // lowest to highest (decending order)
