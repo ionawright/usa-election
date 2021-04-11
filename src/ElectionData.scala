@@ -147,18 +147,22 @@ object ElectionData extends App {
             val electoralVote = getNumberInString(x)
 //            println(electoralVote)
           val list = highestParty :: electoralVote :: Nil
-          println(list)
-//            val boom = List(highestParty, electoralVote)
+//          println(list)
+
+//           if list._1 == highestParty
+          //   sumListValues(list)
         }
         // RESULT Democratic 88, Republican 47
     }
 
     def totalNumberOfVotesForParty(party: String): Unit = {
+        //List((Democratic,1672143), (Republican,1661686), (Libertarian,51465), (Green,1557), (Others,475))
         mapdata foreach { case (x,y) => println(y)
 //          if (y == party)
         }
-        //List((Democratic,1672143), (Republican,1661686), (Libertarian,51465), (Green,1557), (Others,475))
+        // Match list._1
         // List(Democratic,1672143, Democratic,423932, Democratic,153778)
+
         // println(sumListValues(List)
         // The $party party gained $totalVotes votes which is $percentage% of the votes cast
     }
