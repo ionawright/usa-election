@@ -7,36 +7,36 @@ import scala.collection.immutable.ListMap
 object ElectionData extends App {
 
     val mapdata = readFile("election_data.txt")
-    println(mapdata)
 
-    // TODO: menu input will throw exception when space / int is accidently added - catch to throw a better error.
-//    val actionMap = Map[Int, () => Boolean](1 -> handleOne, 2 -> handleTwo, 3 -> handleThree, 4 -> handleFour, 5 -> handleFive, 6 -> handleSix, 7 -> handleSeven)
-//    var opt = 0
-//        do {
-//            opt = readOption
-//        } while (menu(opt))
-//
-//        def readOption: Int = {
-//            println(
-//                """|Please select one of the following:
-//                   |  1 - Display all states and votes
-//                   |  2 - Total number of votes for state
-//                   |  3 - Average number of votes per party in a state
-//                   |  4 - Winning party of state (plus % of vote)
-//                   |  5 - Descending list of party & electoral votes won
-//                   |  6 - Total number of votes & % in a state
-//                   |  7 - Quit""".stripMargin)
-//            readInt()
-//        }
-//
-//        def menu(option: Int): Boolean = {
-//            actionMap.get(option) match {
-//                case Some(f) => f()
-//                case None =>
-//                    println("Sorry, that command is not recognized")
-//                    true
-//            }
-//        }
+    // TODO: menu input will throw exception when space / int is added - catch to throw a better error.
+    val actionMap = Map[Int, () => Boolean](1 -> handleOne, 2 -> handleTwo, 3 -> handleThree, 4 -> handleFour, 7 -> handleSeven)
+    var opt = 0
+        do {
+            opt = readOption
+        } while (menu(opt))
+
+        def readOption: Int = {
+            println(
+                """|Please select one of the following:
+                   |  1 - Display all states and votes
+                   |  2 - Total number of votes for state (requires electoral votes and brackets)
+                   |  3 - Average number of votes per party in a state (requires electoral votes and brackets)
+                   |  4 - Winning party of state (plus % of vote)
+                   |  7 - Quit""".stripMargin)
+            readInt()
+        }
+
+//    5 - Descending list of party & electoral votes won
+//    6 - Total number of votes & % in a state
+
+        def menu(option: Int): Boolean = {
+            actionMap.get(option) match {
+                case Some(f) => f()
+                case None =>
+                    println("Sorry, that command is not recognized")
+                    true
+            }
+        }
 
         // handlers for menu options
         def handleOne(): Boolean = {
@@ -59,15 +59,15 @@ object ElectionData extends App {
             true
         }
 
-        def handleFive(): Boolean = {
+//        def handleFive(): Boolean = {
 //            showVotesWonByParties(votesWonByParties)
-            true
-        }
+//            true
+//        }
 
-        def handleSix(): Boolean = {
+//        def handleSix(): Boolean = {
 //            showTotalNumberOfVotesForParty(totalNumberOfVotesForParty)
-            true
-        }
+//            true
+//        }
 
         def handleSeven(): Boolean = {
             println("Selected quit, Goodbye")
@@ -101,17 +101,7 @@ object ElectionData extends App {
 //        println(s"$result")
 //    }
 
-    // TODO: 2 functions
-//    def showVotesWonByParties(f: (String) => Int) = {
-//        val result = votesWonByParties()
-//        println(s"$result")
-//    }
-//
-//    def showTotalNumberOfVotesForParty(f: (String) => (String,Int)) = {
-//        val party = readLine("Enter party: ")
-//        val result = totalNumberOfVotesForParty(party)
-//        println(s"The $party party gained $votes votes which is $percentage of the votes cast")
-//    }
+
 
 ////  OPERATION FUNCTIONS
     def currentVotes(): Map[String, List[(String, Int)]] = {
@@ -160,26 +150,18 @@ object ElectionData extends App {
           println(list)
 //            val boom = List(highestParty, electoralVote)
         }
-
         // RESULT Democratic 88, Republican 47
     }
-//    println(votesWonByPartyElectoral(mapdata))
 
     def totalNumberOfVotesForParty(party: String): Unit = {
-        println(s"Party selected: $party")
-        val sum = mapdata.get(party)
-//        match {
-//            case Some(x) => x.map (_._2)
-//            case None => 0
-//        }
-        println(sum)
+        mapdata foreach { case (x,y) => println(y)
+//          if (y == party)
+        }
         //List((Democratic,1672143), (Republican,1661686), (Libertarian,51465), (Green,1557), (Others,475))
-
         // List(Democratic,1672143, Democratic,423932, Democratic,153778)
         // println(sumListValues(List)
         // The $party party gained $totalVotes votes which is $percentage% of the votes cast
     }
-    println(totalNumberOfVotesForParty("Democratic"))
 
 
         def readFile(filename: String): Map[String, List[(String, Int)]] = {
